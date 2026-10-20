@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fotos Vôlei de Areia</title>
+  <link rel="stylesheet" href="static/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏐</text></svg>">
+</head>
+<body>
+
+  <!-- Barra Superior / Header -->
+  <header class="header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="logo-icon">🏐</div>
+        <div>
+          <h1 class="brand-title">Fotos Vôlei de Areia</h1>
+          <p class="brand-subtitle" id="statsSubHeader">Carregando catálogo de fotos...</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Badge de status de conexão -->
+        <div class="status-pill" id="statusPill">
+          <span class="status-dot"></span>
+          <span id="statusText">Conectando...</span>
+        </div>
+        <button class="btn btn-primary" id="btnShareHeader" style="display: none;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          Compartilhar Link
+        </button>
+      </div>
+    </div>
+
+    <!-- Banner de Link Público Ativo na Internet -->
+    <div class="tunnel-banner" id="tunnelBanner" style="display: none;">
+      <div class="banner-content">
+        <div class="banner-badge">🌐 LINK PÚBLICO ATIVO</div>
+        <div class="banner-url-box">
+          <span class="banner-url" id="tunnelUrlText">https://...</span>
+          <button class="btn btn-sm btn-accent" id="btnCopyTunnelUrl">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copiar Link
+          </button>
+          <a class="btn btn-sm btn-whatsapp" id="btnWhatsappShare" target="_blank" rel="noopener">
+            WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Barra de Filtros e Busca -->
+  <nav class="nav-toolbar">
+    <div class="toolbar-container">
+      
+      <!-- Abas de seleção -->
+      <div class="tabs-group" role="tablist">
+        <button class="tab-btn active" data-tab="all">
+          ✨ Todas as Fotos
+          <span class="badge" id="badgeAll">...</span>
+        </button>
+        <button class="tab-btn" data-tab="volei1">
+          🏐 Vôlei Areia 1
+          <span class="badge" id="badgeV1">...</span>
+        </button>
+        <button class="tab-btn" data-tab="volei2">
+          🏐 Vôlei Areia 2
+          <span class="badge" id="badgeV2">...</span>
+        </button>
+        <button class="tab-btn" data-tab="volei3">
+          🏐 Vôlei Areia 3
+          <span class="badge" id="badgeV3">...</span>
+        </button>
+      </div>
+
+      <!-- Campo de Busca e Ordenação -->
+      <div class="controls-group">
+        <div class="search-box">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="search" id="searchInput" placeholder="Buscar por número (ex: 1650)..." autocomplete="off">
+          <button id="searchClear" class="clear-btn" title="Limpar busca" style="display: none;">✕</button>
+        </div>
+
+        <select id="sortSelect" class="sort-select" title="Ordenar fotos">
+          <option value="asc">Nome (A - Z)</option>
+          <option value="desc">Nome (Z - A)</option>
+        </select>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- Contador e Resumo -->
+  <div class="summary-bar">
+    <div class="container summary-content">
+      <span id="resultsCount">Carregando fotos...</span>
+      <span class="tip-text">💡 Dica: Clique em qualquer foto para abrir em tela cheia e baixar na resolução original</span>
+    </div>
+  </div>
+
+  <!-- Galeria de Fotos -->
+  <main class="main-gallery">
+    <div class="container">
+      <div class="gallery-grid" id="galleryGrid">
+        <!-- Cards inseridos dinamicamente pelo JavaScript -->
+      </div>
+
+      <!-- Estado Vazio se Busca não achar nada -->
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <div class="empty-icon">🔍</div>
+        <h3>Nenhuma foto encontrada</h3>
+        <p>Não encontramos fotos correspondentes à sua busca. Tente buscar por outro número ou limpe o campo.</p>
+        <button class="btn btn-secondary" id="btnResetSearch">Limpar Busca</button>
+      </div>
+
+      <!-- Botão ou Sentinela de Carregar Mais -->
+      <div class="load-more-container" id="loadMoreContainer">
+        <button class="btn btn-load-more" id="btnLoadMore">Carregar Mais Fotos</button>
+        <div class="loader-spinner" id="loaderSpinner" style="display: none;"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal (Visualizador Fullscreen) -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" style="display: none;">
+    <div class="lightbox-overlay" id="lightboxOverlay"></div>
+
+    <div class="lightbox-content">
+      <!-- Barra superior do Lightbox -->
+      <div class="lightbox-header">
+        <div class="lightbox-info">
+          <span class="lightbox-counter" id="lbCounter">1 / 4.108</span>
+          <span class="lightbox-badge" id="lbCategory">Vôlei Areia 1</span>
+          <span class="lightbox-filename" id="lbFilename">IMG_0001.JPG</span>
+        </div>
+        <div class="lightbox-top-actions">
+          <a class="btn-icon" id="lbBtnDownloadTop" download title="Baixar original">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          </a>
+          <button class="btn-icon" id="lbBtnClose" title="Fechar (Esc)">✕</button>
+        </div>
+      </div>
+
+      <!-- Área da imagem principal -->
+      <div class="lightbox-image-wrapper" id="lbImageWrapper">
+        <div class="lightbox-spinner" id="lbSpinner"></div>
+        <img class="lightbox-img" id="lbImage" src="" alt="Foto expandida">
+      </div>
+
+      <!-- Botões de navegação lateral -->
+      <button class="nav-arrow nav-prev" id="lbBtnPrev" title="Anterior (Seta Esquerda)">❮</button>
+      <button class="nav-arrow nav-next" id="lbBtnNext" title="Próxima (Seta Direita)">❯</button>
+
+      <!-- Barra de Ações Inferior -->
+      <div class="lightbox-footer">
+        <div class="photo-filesize" id="lbFilesize">Tamanho original: 5.4 MB</div>
+        <div class="lightbox-actions">
+          <button class="btn btn-secondary btn-sm" id="lbBtnCopyLink">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            Copiar Link da Foto
+          </button>
+          <a class="btn btn-primary btn-sm" id="lbBtnDownload" href="" download>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Baixar Foto Original
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botão Flutuante Voltar ao Topo -->
+  <button class="fab-top" id="fabTop" title="Voltar ao Topo">↑</button>
+
+  <!-- Mensagem Toast de Feedback -->
+  <div class="toast" id="toast">Link copiado para a área de transferência!</div>
+
+  <script src="static/app.js"></script>
+</body>
+</html>
