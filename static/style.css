@@ -489,6 +489,11 @@ body {
   color: #ffffff;
 }
 
+.badge-talentos {
+  background: rgba(236, 72, 153, 0.85);
+  color: #ffffff;
+}
+
 /* Overlay no Hover */
 .card-overlay {
   position: absolute;
