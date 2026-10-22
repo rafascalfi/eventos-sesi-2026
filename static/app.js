@@ -137,7 +137,7 @@ async function checkServerInfo() {
     el.tunnelUrlText.textContent = shareUrl;
     el.btnShareHeader.style.display = 'inline-flex';
     
-    const msg = encodeURIComponent(`Confira as fotos do Vôlei de Areia: ${shareUrl}`);
+    const msg = encodeURIComponent(`Confira as fotos - Eventos SESI 10/2026: ${shareUrl}`);
     el.btnWhatsappShare.href = `https://api.whatsapp.com/send?text=${msg}`;
   } catch (e) {
     console.warn('Verificando status do servidor...', e);
@@ -458,8 +458,8 @@ el.btnShareHeader.addEventListener('click', async () => {
   if (navigator.share) {
     try {
       await navigator.share({
-        title: 'Fotos Vôlei de Areia',
-        text: 'Confira todas as fotos do Vôlei de Areia:',
+        title: 'Eventos SESI 10/2026',
+        text: 'Confira todas as fotos - Eventos SESI 10/2026:',
         url: PERMANENT_URL
       });
     } catch (err) {
