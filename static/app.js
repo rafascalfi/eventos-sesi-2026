@@ -12,7 +12,7 @@ const state = {
   isCloudHost: window.location.hostname.includes('github.io')
 };
 
-const PERMANENT_URL = 'https://rafascalfi.github.io/fotos-volei/';
+const PERMANENT_URL = 'https://rafascalfi.github.io/eventos-sesi-2026/';
 
 // Elementos do DOM
 const el = {
