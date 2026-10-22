@@ -483,6 +483,12 @@ el.fabTop.addEventListener('click', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+  document.title = 'Eventos SESI 10/2026';
+  const titleEl = document.querySelector('.brand-title');
+  if (titleEl) titleEl.textContent = 'Eventos SESI 10/2026';
+  const logoEl = document.querySelector('.logo-icon');
+  if (logoEl) logoEl.textContent = '📸';
+
   const params = new URLSearchParams(window.location.search);
   const qParam = params.get('q');
   if (qParam) {
