@@ -484,6 +484,11 @@ body {
   color: #ffffff;
 }
 
+.badge-debate2a {
+  background: rgba(99, 102, 241, 0.85);
+  color: #ffffff;
+}
+
 .badge-debate {
   background: rgba(56, 189, 248, 0.85);
   color: #ffffff;

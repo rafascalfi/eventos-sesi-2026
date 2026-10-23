@@ -29,6 +29,7 @@ const el = {
   badgeV1: document.getElementById('badgeV1'),
   badgeV2: document.getElementById('badgeV2'),
   badgeV3: document.getElementById('badgeV3'),
+  badgeDebate2A: document.getElementById('badgeDebate2A'),
   badgeDebate: document.getElementById('badgeDebate'),
   badgeTalentos: document.getElementById('badgeTalentos'),
   
@@ -159,6 +160,9 @@ async function loadPhotos() {
     el.badgeV1.textContent = stats.volei1.toLocaleString();
     el.badgeV2.textContent = stats.volei2.toLocaleString();
     el.badgeV3.textContent = stats.volei3.toLocaleString();
+    if (el.badgeDebate2A && stats.debate2a !== undefined) {
+      el.badgeDebate2A.textContent = stats.debate2a.toLocaleString();
+    }
     if (el.badgeDebate && stats.debate2b !== undefined) {
       el.badgeDebate.textContent = stats.debate2b.toLocaleString();
     }
@@ -166,7 +170,7 @@ async function loadPhotos() {
       el.badgeTalentos.textContent = stats.talentos.toLocaleString();
     }
     
-    el.statsSubHeader.textContent = `${stats.total.toLocaleString()} fotos • Vôlei 1 (${stats.volei1.toLocaleString()}) • Vôlei 2 (${stats.volei2.toLocaleString()}) • Vôlei 3 (${stats.volei3.toLocaleString()}) • Debate 2º B (${(stats.debate2b || 0).toLocaleString()}) • Show de Talentos (${(stats.talentos || 0).toLocaleString()})`;
+    el.statsSubHeader.textContent = `${stats.total.toLocaleString()} fotos • Vôlei 1 (${stats.volei1.toLocaleString()}) • Vôlei 2 (${stats.volei2.toLocaleString()}) • Vôlei 3 (${stats.volei3.toLocaleString()}) • Debate 2º A (${(stats.debate2a || 0).toLocaleString()}) • Debate 2º B (${(stats.debate2b || 0).toLocaleString()}) • Show de Talentos (${(stats.talentos || 0).toLocaleString()})`;
     
     applyFilters();
   } catch (err) {
@@ -214,6 +218,7 @@ function getBadgeStyle(folder) {
   if (folder === 'volei1') return { cls: 'badge-v1', label: 'Vôlei 1', color: 'var(--accent-purple)' };
   if (folder === 'volei2') return { cls: 'badge-v2', label: 'Vôlei 2', color: 'var(--accent-amber)' };
   if (folder === 'volei3') return { cls: 'badge-v3', label: 'Vôlei 3', color: 'var(--accent-emerald)' };
+  if (folder === 'debate2a') return { cls: 'badge-debate2a', label: 'Debate 2º A', color: '#6366f1' };
   if (folder === 'talentos') return { cls: 'badge-talentos', label: 'Show de Talentos', color: '#ec4899' };
   return { cls: 'badge-debate', label: 'Debate 2º B', color: 'var(--accent-blue)' };
 }
