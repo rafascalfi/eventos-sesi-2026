@@ -148,7 +148,7 @@ async function checkServerInfo() {
 
 async function loadPhotos() {
   try {
-    const endpoint = state.isCloudHost ? 'photos.json' : '/api/photos';
+    const endpoint = state.isCloudHost ? 'photos.json?v=5' : '/api/photos?v=5';
     const res = await fetch(endpoint);
     if (!res.ok) throw new Error('Falha ao carregar catálogo');
     const data = await res.json();
